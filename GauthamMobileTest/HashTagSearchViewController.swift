@@ -37,7 +37,9 @@ class HashTagSearchViewController: UIViewController,UITableViewDelegate, UITable
         
         let client = TWTRAPIClient()
         let statusesShowEndpoint = "https://api.twitter.com/1.1/search/tweets.json"
-        let params = ["id": self.userID,"count":count,"q":"#"+_searchText]
+        let replaced = _searchText.replacingOccurrences(of: "#", with: "")
+        
+        let params = ["id": self.userID,"count":count,"q":"#"+replaced]
         var clientError : NSError?
         
         let request = client.urlRequest(withMethod: "GET", url: statusesShowEndpoint, parameters: params, error: &clientError)
@@ -48,15 +50,20 @@ class HashTagSearchViewController: UIViewController,UITableViewDelegate, UITable
             }
             
             do {
-                if let json = try JSONSerialization.jsonObject(with: data!, options: [.mutableContainers]) as? [String: AnyObject] {
+                
+                guard let serverData = data else {
+                    return
+                }
+                
+                if let json = try JSONSerialization.jsonObject(with: serverData, options: [.mutableContainers]) as? [String: AnyObject] {
                     
                     if let success:NSMutableArray = json["statuses"] as? NSMutableArray{
                         DispatchQueue.main.async {
                             
-                                var dataArray = NSMutableArray()
-                                dataArray = success
-                                self.hashTagsArray.addObjects(from: dataArray as [AnyObject])
-                                self.searchTableView.reloadData()
+                            var dataArray = NSMutableArray()
+                            dataArray = success
+                            self.hashTagsArray.addObjects(from: dataArray as [AnyObject])
+                            self.searchTableView.reloadData()
                             
                         }                    }
                     
