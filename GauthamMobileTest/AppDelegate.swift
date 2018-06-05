@@ -17,7 +17,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
-        Twitter.sharedInstance().start(withConsumerKey:"ATSDbUQGPZsX9PbPdmMpbgTIi", consumerSecret:"40vnXM67qdLOOFGi4NbCqwnAc2dKSoZ7CiuUxbWJq2VlwN6Ahv")
+        Twitter.sharedInstance().start(withConsumerKey:"Q67y6CFTqs3J3LX6TXG2KIITk", consumerSecret:"dR1gbGjkjykIFfdgUDdixkPGN5JBKDtaROi2EiDYeJ1Qi0UY95")
 
         return true
     }
